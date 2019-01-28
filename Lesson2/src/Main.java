@@ -4,11 +4,15 @@ public class Main {
 
 
         String [][] arr = {{"1", "2", "3", "5"},
-                            {"4", "1", "6", "1"},
-                            {"4", "1", "6", "1"},
-                            {"4", "1", "6", "6"}};
+                  {"gh", "1", "6", "1"},
+                  {"4", "1", "6", "1"},
+                  {"4", "1", "6", "6"}};
 
+        doSum (arr);
 
+    }
+
+    public static void doSum (String [][] arr) {
         int sum=0;
 
         try {
@@ -24,14 +28,16 @@ public class Main {
             System.out.println ("Ошибка! Размер массива должен быть 4х4");
         }catch (MyArrayDataException e) {
             System.out.println("Ошибка. Невозможно просуммировать все элементы массива!");
-            }
+        }
+
     }
+
 
 
     public static void checkData (String arr, int i, int j) throws MyArrayDataException  {
         try {Integer.valueOf(arr);}
         catch (Exception e){
-            System.out.printf("Элемент массива %s, %d  не является числом. %n", i, j);
+            System.out.printf("Элемент массива [%s, %d]  не является числом. %n", i, j);
             throw new MyArrayDataException();
         }
 
