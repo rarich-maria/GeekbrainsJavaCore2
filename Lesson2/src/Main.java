@@ -3,10 +3,10 @@ public class Main {
     public static void main (String [] args) {
 
 
-        String [][] arr = {{"1", "2", "3", "5"},
-                  {"gh", "1", "6", "1"},
-                  {"4", "1", "6", "1"},
-                  {"4", "1", "6", "6"}};
+        String [][] arr = {{"4", "2", "3", "5"},
+                  {"0", "1", "6", "1"},
+                  {"4", "1", "6", "7" },
+                  {"4", "1", "op", "5"}};
 
         doSum (arr);
 
@@ -16,20 +16,19 @@ public class Main {
         int sum=0;
 
         try {
-            checkSizeArray (arr.length, arr [0].length);
             for (int i=0; i<arr.length; i++ ) {
-                for (int j = 0; j < arr[0].length; j++) {
+                checkSizeArray (arr.length, arr [i].length);
+                for (int j = 0; j < arr[i].length; j++) {
                     checkData(arr[i][j], i, j);
                     sum+=Integer.valueOf (arr[i][j]);
                 }
             }
             System.out.println ("Сумма элементов массива: " + sum);
         }catch (MySizeArrayException e) {
-            System.out.println ("Ошибка! Размер массива должен быть 4х4");
+            e.setText();
         }catch (MyArrayDataException e) {
-            System.out.println("Ошибка. Невозможно просуммировать все элементы массива!");
+            System.out.println (e.setText());
         }
-
     }
 
 
@@ -37,8 +36,7 @@ public class Main {
     public static void checkData (String arr, int i, int j) throws MyArrayDataException  {
         try {Integer.valueOf(arr);}
         catch (Exception e){
-            System.out.printf("Элемент массива [%s, %d]  не является числом. %n", i, j);
-            throw new MyArrayDataException();
+            throw new MyArrayDataException(i, j);
         }
 
     }
