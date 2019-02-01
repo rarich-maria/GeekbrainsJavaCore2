@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Task1 {
 
@@ -20,11 +22,32 @@ public class Task1 {
         arrList.add("зима");
         System.out.println(arrList);
 
-        compare(arrList);
+        comparison(arrList);
 
     }
 
-    public static void compare (ArrayList<String> arrList) {
+
+    public static void comparison (ArrayList<String> arrList) {
+
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+
+        for (int i=0; i<arrList.size(); i++) {
+            if(result.keySet().contains(arrList.get(i))) {
+                result.put(arrList.get(i), (1+result.get(arrList.get(i))));
+            } else {
+                result.put(arrList.get(i), 1);
+            }
+        }
+
+        for (Map.Entry<String, Integer> o : result.entrySet()) {
+            System.out.print(o.getKey() + ": ");
+            System.out.println(o.getValue());
+        }
+
+
+    }
+
+    /*public static void compare (ArrayList<String> arrList) {
         while (arrList.size()!=0){
             int count=0;
             String a=arrList.get(0);
@@ -39,6 +62,10 @@ public class Task1 {
             System.out.printf ("Слово %s повторяется %d раз %n", a, count);
 
         }
-    }
+    }*/
+
+
+
+
 
 }
