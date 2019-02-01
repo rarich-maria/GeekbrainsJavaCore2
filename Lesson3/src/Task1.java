@@ -20,28 +20,25 @@ public class Task1 {
         arrList.add("зима");
         System.out.println(arrList);
 
-        comparison(arrList);
+        compare(arrList);
 
     }
 
-    public static void comparison (ArrayList<String> arrList) {
-        String a=arrList.get(0);
+    public static void compare (ArrayList<String> arrList) {
+        while (arrList.size()!=0){
+            int count=0;
+            String a=arrList.get(0);
 
-        int count=0;
-
-                for (int i=0; i<arrList.size(); i++) {
-                    while (i<arrList.size() && a.equals(arrList.get(i))) {
-                        count++;
-                        arrList.remove(i);
-                    }
+            for (int i=0; i<arrList.size(); i++) {
+                while (i<arrList.size() && a.equals(arrList.get(i))) {
+                    count++;
+                    arrList.remove(i);
                 }
+            }
 
             System.out.printf ("Слово %s повторяется %d раз %n", a, count);
 
-            if (arrList.size()!=0) {
-                //System.out.println(arrList);
-                comparison(arrList);
-            }
+        }
     }
 
 }
