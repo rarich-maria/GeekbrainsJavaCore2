@@ -69,21 +69,28 @@ public class ChatServer {
 
     // TODO реализовать отправку сообщения пользователю с именем username
 
-    public void sendPrivateMessage(String fromUsername, String forUsername, String msg) throws IOException {
+    public  synchronized void sendPrivateMessage(String fromUsername, String forUsername, String msg) throws IOException {
 
-        if (clientHandlerMap.keySet().contains(forUsername)) {
-            //clientHandlerMap.get(forUsername).getOut().writeUTF("/str" + " " + fromUsername + " " + msg);
-            clientHandlerMap.get(forUsername).getOut().writeUTF(fromUsername + " " + msg);
-            clientHandlerMap.get(forUsername).getOut().flush();
-            System.out.println(fromUsername + " " + msg);
-        }else {
-            clientHandlerMap.get(fromUsername).getOut().writeUTF("Server Пользовать с таким именем не подключен или не существует" );
-            clientHandlerMap.get(fromUsername).getOut().flush();
-            System.out.println("Пользователя с таким именем не существует");
+        try {
+
+            if (clientHandlerMap.keySet().contains(forUsername)) {
+                //clientHandlerMap.get(forUsername).getOut().writeUTF("/str" + " " + fromUsername + " " + msg);
+                clientHandlerMap.get(forUsername).getOut().writeUTF(fromUsername + " " + msg);
+                clientHandlerMap.get(forUsername).getOut().flush();
+                System.out.println(fromUsername + " " + msg);
+            } else {
+                clientHandlerMap.get(fromUsername).getOut().writeUTF("Server Пользовать с таким именем не подключен или не существует");
+                clientHandlerMap.get(fromUsername).getOut().flush();
+                System.out.println("Пользователя с таким именем не существует");
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void sendOpenMessage (String fromUsername, String msg) throws IOException {
+    public synchronized void sendOpenMessage (String fromUsername, String msg) throws IOException {
+
+        try {
         for (String o : clientHandlerMap.keySet()) {
             if (o!=fromUsername) {
                 //clientHandlerMap.get(o).getOut().writeUTF("/str" + " " + fromUsername + " " + msg);
@@ -92,6 +99,9 @@ public class ChatServer {
                 System.out.println(fromUsername + " " + msg);
             }
             
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
         }
         
     }
